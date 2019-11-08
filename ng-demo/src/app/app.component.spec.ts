@@ -34,7 +34,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should contain qb-app class as first element', () => {
+  it('should contain container class as first element', () => {
     expect(fixture.nativeElement.querySelectorAll('div')[0].classList).toContain('container');
   });
 
