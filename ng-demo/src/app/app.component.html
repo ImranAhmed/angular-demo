@@ -27,5 +27,13 @@
     <button class="btn btn-sm btn-primary mr-2" (click)="clearData()">Clear</button>
     <button class="btn btn-sm btn-primary" (click)="fetchData()">Fetch</button>
 
+    <form class="mt-5" (submit)="handleSubmit($event)">
+      <div>
+        <input type="text" class="form-control" id="userName" placeholder="Name"
+               (change)="handleChange($event.target.value)" />
+      </div>
+      <input type="submit" class="btn btn-sm btn-primary mt-2" value="Submit" />
+    </form>
+
   </div>
 </div>

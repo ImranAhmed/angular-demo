@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private unsubscribe: Subject<void> = new Subject();
   users: any[];
   isLoading = true;
+  newUser = {};
 
   constructor(private service: DataService) {
 
@@ -36,6 +37,21 @@ export class AppComponent implements OnInit, OnDestroy {
         });
     };
     setTimeout(fetch, 1000);
+  }
+
+  handleChange(value) {
+    this.newUser = {
+      id: Math.max.apply(Math, this.users.map((u) => u.id + 1)),
+      email: `${value}@reqres.in`,
+      first_name: value,
+      last_name: 'Surname',
+      avatar: 'https://source.unsplash.com/random'
+    };
+  }
+
+  handleSubmit(e) {
+    this.users.push(this.newUser);
+    e.preventDefault();
   }
 
   clearData() {
