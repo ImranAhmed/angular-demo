@@ -19,10 +19,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getData();
+    this.fetchData();
   }
 
-  getData() {
+  fetchData() {
     this.service.getUsers()
       .pipe(
         takeUntil(this.unsubscribe)
@@ -30,6 +30,10 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((res: any) => {
         this.users = res.data;
       });
+  }
+
+  clearData() {
+    this.users = [];
   }
 
   ngOnDestroy(): void {

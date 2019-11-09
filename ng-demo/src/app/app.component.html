@@ -12,8 +12,10 @@
       <tr *ngFor="let user of users">
         <td>{{user.first_name}} {{user.last_name}}</td>
         <td>{{user.email}}</td>
-        <td><img src="{{user.avatar}}" class="avatar" alt=""></td>
+        <td><img src="{{user.avatar}}" class="avatar" alt="" /></td>
       </tr>
     </tbody>
   </table>
+  <button class="btn btn-sm btn-primary mr-2" (click)="clearData()">Clear</button>
+  <button class="btn btn-sm btn-primary" (click)="fetchData()">Fetch</button>
 </div>
