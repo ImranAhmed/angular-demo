@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import UserTable from './components/UserTable';
-import { getUsers } from './services/DataService';
+import { addUser, getUsers } from './services/DataService';
 
 const App = () => {
 
@@ -36,8 +36,11 @@ const App = () => {
   const deleteUser = (id) => setData({ users: [...data.users.filter(u => u.id !== id)], isLoading: data.isLoading });
 
   const handleSubmit = (e) => {
-    setData({ users: [...data.users, newUser], isLoading: data.isLoading });
     e.preventDefault();
+    setData({ users: [...data.users, newUser], isLoading: data.isLoading });
+    addUser({ name: newUser.first_name }).then(res => {
+      console.log(res);
+    });
   }
 
   const handleChange = (e) => {
