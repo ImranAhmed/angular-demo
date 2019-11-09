@@ -1,56 +1,48 @@
-import './App.scss';
-
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+
+import UserTable from './components/UserTable';
 
 const USER_SERVICE_URL = 'https://reqres.in/api/users';
 
 const App = () => {
 
-  const [data, setData] = useState({ users: [], isFetching: true });
+  const [data, setData] = useState({ users: [], isLoading: true });
 
   useEffect(() => {
     async function getUsers() {
       try {
         const result = await axios(USER_SERVICE_URL);
-        setData({ users: result.data.data, isFetching: false });
+        setData({ users: result.data.data, isLoading: false });
         console.log(data);
       } catch (e) {
         console.log(e);
-        setData({ users: data.users, isFetching: false });
+        setData({ users: data.users, isLoading: false });
       }
     }
-    getUsers();
+
+    setTimeout(getUsers, 1000);
     // eslint-disable-next-line
-  }, [data.isFetching]);
+  }, [data.isLoading]);
 
-  const clearData = () => setData({ users: [], isFetching: data.isFetching });
+  const renderIsLoading = () => {
+    return (
+      <div className="spinner-border" role="status">
+        <span className="sr-only">Loading...</span>
+      </div>
+    )
+  }
 
-  const fetchData = () => setData({ users: [], isFetching: true });
+  const clearData = () => setData({ users: [], isLoading: data.isLoading });
+
+  const fetchData = () => setData({ users: [], isLoading: true });
+
+  const deleteUser = (id) => setData({ users: [...data.users.filter(u => u.id !== id)], isLoading: data.isLoading });
 
   return (
     <div className="container mt-5">
       <h1>Rest App</h1>
-      <table className="table mt-5">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Identity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.users.map(user => (
-            <tr key={user.id}>
-              <td>{user.first_name} {user.last_name}</td>
-              <td>{user.email}</td>
-              <td><img src={user.avatar} className="avatar" alt="" /></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <button className="btn btn-sm btn-primary mr-2" onClick={clearData}>Clear</button>
-      <button className="btn btn-sm btn-primary" onClick={fetchData}>Fetch</button>
+      {data.isLoading ? renderIsLoading() : <UserTable data={data} deleteUser={deleteUser} fetchData={fetchData} clearData={clearData} />}
     </div>
   );
 }

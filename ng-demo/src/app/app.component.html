@@ -1,21 +1,31 @@
 <div class="container mt-5">
   <h1>Rest App</h1>
-  <table class="table mt-5">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Identity</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.first_name}} {{user.last_name}}</td>
-        <td>{{user.email}}</td>
-        <td><img src="{{user.avatar}}" class="avatar" alt="" /></td>
-      </tr>
-    </tbody>
-  </table>
-  <button class="btn btn-sm btn-primary mr-2" (click)="clearData()">Clear</button>
-  <button class="btn btn-sm btn-primary" (click)="fetchData()">Fetch</button>
+
+  <div class="spinner-border" role="status" *ngIf="isLoading">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Identity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{user.first_name}} {{user.last_name}}</td>
+          <td>{{user.email}}</td>
+          <td><img src="{{user.avatar}}" class="avatar" alt="" /></td>
+          <td><button class="btn btn-sm btn-primary" (click)="deleteUser(user.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-sm btn-primary mr-2" (click)="clearData()">Clear</button>
+    <button class="btn btn-sm btn-primary" (click)="fetchData()">Fetch</button>
+
+  </div>
 </div>

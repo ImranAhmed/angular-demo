@@ -13,6 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<void> = new Subject();
   users: any[];
+  isLoading = true;
 
   constructor(private service: DataService) {
 
@@ -23,17 +24,26 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   fetchData() {
-    this.service.getUsers()
-      .pipe(
-        takeUntil(this.unsubscribe)
-      )
-      .subscribe((res: any) => {
-        this.users = res.data;
-      });
+    this.isLoading = true;
+    const fetch = () => {
+      this.service.getUsers()
+        .pipe(
+          takeUntil(this.unsubscribe)
+        )
+        .subscribe((res: any) => {
+          this.users = res.data;
+          this.isLoading = false;
+        });
+    };
+    setTimeout(fetch, 1000);
   }
 
   clearData() {
     this.users = [];
+  }
+
+  deleteUser(id: number) {
+    this.users = this.users.filter(u => u.id !== id);
   }
 
   ngOnDestroy(): void {

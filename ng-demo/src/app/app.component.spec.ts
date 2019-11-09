@@ -47,12 +47,18 @@ describe('AppComponent', () => {
   });
 
   describe('user table', () => {
+
+    beforeEach(() => {
+      component.isLoading = false;
+      fixture.detectChanges();
+    });
+
     it('should contain table of users', () => {
       expect(fixture.nativeElement.querySelectorAll('table').length).toBe(1);
     });
 
     it('should contain table headers', () => {
-      expect(fixture.nativeElement.querySelectorAll('table > thead > tr > th').length).toBe(3);
+      expect(fixture.nativeElement.querySelectorAll('table > thead > tr > th').length).toBe(4);
     });
 
     it('should contain name table header', () => {
@@ -65,6 +71,10 @@ describe('AppComponent', () => {
 
     it('should contain identity table header', () => {
       expect(fixture.nativeElement.querySelectorAll('table > thead > tr > th')[2].innerText).toBe('Identity');
+    });
+
+    it('should contain actions table header', () => {
+      expect(fixture.nativeElement.querySelectorAll('table > thead > tr > th')[3].innerText).toBe('Actions');
     });
   });
 });
