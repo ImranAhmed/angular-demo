@@ -3,7 +3,7 @@ import React from 'react';
 
 import UserTable from './UserTable';
 
-describe('user table', () => {
+describe('UserTable', () => {
     const users = [
         {
             "id": 1,

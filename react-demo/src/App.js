@@ -1,9 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import UserTable from './components/UserTable';
-
-const USER_SERVICE_URL = 'https://reqres.in/api/users';
+import { getUsers } from './services/DataService';
 
 const App = () => {
 
@@ -12,18 +10,14 @@ const App = () => {
   const [newUser, setNewUser] = useState({});
 
   useEffect(() => {
-    async function getUsers() {
-      try {
-        const result = await axios(USER_SERVICE_URL);
-        setData({ users: result.data.data, isLoading: false });
-        console.log(data);
-      } catch (e) {
-        console.log(e);
-        setData({ users: data.users, isLoading: false });
-      }
-    }
 
-    setTimeout(getUsers, 1000);
+    const fetchUsers = () => {
+      getUsers().then(res => {
+        if (!res) return;
+        setData({ users: res.data.data, isLoading: false });
+      });
+    }
+    setTimeout(fetchUsers, 1000);
     // eslint-disable-next-line
   }, [data.isLoading]);
 
