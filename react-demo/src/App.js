@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import IsLoading from './components/IsLoading';
 import UserTable from './components/UserTable';
 import { addUser, getUsers } from './services/DataService';
 
@@ -20,14 +21,6 @@ const App = () => {
     setTimeout(fetchUsers, 1000);
     // eslint-disable-next-line
   }, [data.isLoading]);
-
-  const renderIsLoading = () => {
-    return (
-      <div className="spinner-border" role="status">
-        <span className="sr-only">Loading...</span>
-      </div>
-    )
-  }
 
   const clearData = () => setData({ users: [], isLoading: data.isLoading });
 
@@ -59,7 +52,7 @@ const App = () => {
     <div className="container mt-5">
       <h1>Rest App</h1>
 
-      {data.isLoading ? renderIsLoading() : <UserTable data={data} deleteUser={deleteUser} fetchData={fetchData} clearData={clearData} />}
+      {data.isLoading ? <IsLoading /> : <UserTable data={data} deleteUser={deleteUser} fetchData={fetchData} clearData={clearData} />}
 
       {
         !data.isLoading && (
