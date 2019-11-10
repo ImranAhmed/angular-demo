@@ -4,10 +4,9 @@ const USER_SERVICE_URL = 'https://reqres.in/api/users';
 
 export const getUsers = async () => {
     try {
-        const result = await axios(USER_SERVICE_URL);
+        const result = await axios.get(USER_SERVICE_URL);
         return result;
     } catch (e) {
-        console.log(e);
         return null;
     }
 };
@@ -17,7 +16,6 @@ export const addUser = async (user) => {
         const result = await axios.post(USER_SERVICE_URL, user);
         return result;
     } catch (e) {
-        console.log(e);
         return null;
     }
 };
